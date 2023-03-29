@@ -1961,3 +1961,221 @@
   [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 40], ["LIMIT", 1]]
   [1m[36mTweet Create (0.2ms)[0m  [1m[32mINSERT INTO "tweets" ("body", "author_id", "mentioned_user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["body", "The virtue of justice consists in moderation, as regulated by wisdom."], ["author_id", 40], ["mentioned_user_id", 37], ["created_at", "2023-01-02 21:06:47.536836"], ["updated_at", "2023-03-29 21:06:47.537575"]]
   [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/" for ::1 at 2023-03-29 14:18:11 -0700
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/feed" for ::1 at 2023-03-29 14:18:11 -0700
+Processing by TweetsController#feed as HTML
+Redirected to http://localhost:3000/session/new
+Filter chain halted as :require_logged_in! rendered or redirected
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms | Allocations: 997)
+
+
+Started GET "/session/new" for ::1 at 2023-03-29 14:18:11 -0700
+Processing by SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered shared/_errors.html.erb (Duration: 0.1ms | Allocations: 227)
+  Rendered shared/_auth_token.html.erb (Duration: 0.3ms | Allocations: 217)
+  [1m[36mUser Load (3.8ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/sessions/new.html.erb:20
+  Rendered sessions/new.html.erb within layouts/application (Duration: 17.0ms | Allocations: 10793)
+  Rendered layout layouts/application.html.erb (Duration: 80.3ms | Allocations: 29073)
+Completed 200 OK in 84ms (Views: 75.3ms | ActiveRecord: 8.4ms | Allocations: 31833)
+
+
+Started GET "/" for ::1 at 2023-03-29 14:18:28 -0700
+Started GET "/feed" for ::1 at 2023-03-29 14:18:28 -0700
+Processing by TweetsController#feed as HTML
+Redirected to http://localhost:3000/session/new
+Filter chain halted as :require_logged_in! rendered or redirected
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms | Allocations: 752)
+
+
+Started GET "/session/new" for ::1 at 2023-03-29 14:18:28 -0700
+Processing by SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered shared/_errors.html.erb (Duration: 0.1ms | Allocations: 34)
+  Rendered shared/_auth_token.html.erb (Duration: 0.1ms | Allocations: 35)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/sessions/new.html.erb:20
+  Rendered sessions/new.html.erb within layouts/application (Duration: 1.8ms | Allocations: 1066)
+  Rendered layout layouts/application.html.erb (Duration: 3.3ms | Allocations: 2694)
+Completed 200 OK in 4ms (Views: 3.3ms | ActiveRecord: 0.2ms | Allocations: 3454)
+
+
+Started POST "/session" for ::1 at 2023-03-29 14:18:37 -0700
+Processing by SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"username"=>"bob", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "bob"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:34:in `find_by_credentials'
+  Rendering layout layouts/application.html.erb
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered shared/_errors.html.erb (Duration: 0.1ms | Allocations: 25)
+  Rendered shared/_auth_token.html.erb (Duration: 0.2ms | Allocations: 43)
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/sessions/new.html.erb:20
+  Rendered sessions/new.html.erb within layouts/application (Duration: 2.7ms | Allocations: 968)
+  Rendered layout layouts/application.html.erb (Duration: 4.4ms | Allocations: 2712)
+Completed 200 OK in 27ms (Views: 3.7ms | ActiveRecord: 1.9ms | Allocations: 5713)
+
+
+Started POST "/session" for ::1 at 2023-03-29 14:18:42 -0700
+Processing by SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"username"=>"", "password"=>"[FILTERED]"}, "demo"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/sessions_controller.rb:7:in `create'
+  [1m[36mUser Exists? (1.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:41:in `block in generate_session_token'
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:55:in `reset_session_token!'
+  [1m[36mUser Exists? (1.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 AND "users"."id" != $2 LIMIT $3[0m  [["username", "carson_o_gin"], ["id", 1], ["LIMIT", 1]]
+  ↳ app/models/user.rb:55:in `reset_session_token!'
+  [1m[36mUser Update (2.3ms)[0m  [1m[33mUPDATE "users" SET "session_token" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["session_token", "[FILTERED]"], ["updated_at", "2023-03-29 21:18:42.352190"], ["id", 1]]
+  ↳ app/models/user.rb:55:in `reset_session_token!'
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/models/user.rb:55:in `reset_session_token!'
+Redirected to http://localhost:3000/feed
+Completed 302 Found in 21ms (ActiveRecord: 7.1ms | Allocations: 7308)
+
+
+Started GET "/feed" for ::1 at 2023-03-29 14:18:42 -0700
+Processing by TweetsController#feed as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:7:in `current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering tweets/feed.html.erb within layouts/application
+  Rendered shared/_errors.html.erb (Duration: 0.1ms | Allocations: 42)
+  Rendered shared/_auth_token.html.erb (Duration: 0.1ms | Allocations: 57)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != $1[0m  [["id", 1]]
+  ↳ app/views/tweets/_form.html.erb:25:in `each_with_index'
+  Rendered tweets/_form.html.erb (Duration: 2.9ms | Allocations: 2077)
+  [1m[36mTweet Exists? (1.8ms)[0m  [1m[34mSELECT 1 AS one FROM "tweets" INNER JOIN "users" ON "tweets"."author_id" = "users"."id" INNER JOIN "follows" ON "users"."id" = "follows"."following_id" WHERE "follows"."follower_id" = $1 LIMIT $2 OFFSET $3[0m  [["follower_id", 1], ["LIMIT", 1], ["OFFSET", 0]]
+  ↳ app/views/tweets/_infinite_tweets.html.erb:2
+  [1m[36mTweet Load (1.0ms)[0m  [1m[34mSELECT "tweets".* FROM "tweets" INNER JOIN "users" ON "tweets"."author_id" = "users"."id" INNER JOIN "follows" ON "users"."id" = "follows"."following_id" WHERE "follows"."follower_id" = $1 ORDER BY "tweets"."created_at" DESC LIMIT $2 OFFSET $3[0m  [["follower_id", 1], ["LIMIT", 10], ["OFFSET", 0]]
+  ↳ app/views/tweets/_infinite_tweets.html.erb:7
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IN ($1, $2, $3, $4)[0m  [["id", 17], ["id", 23], ["id", 11], ["id", 2]]
+  ↳ app/views/tweets/_infinite_tweets.html.erb:7
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IN ($1, $2, $3, $4, $5, $6, $7, $8, $9)[0m  [["id", 18], ["id", 2], ["id", 40], ["id", 5], ["id", 37], ["id", 34], ["id", 26], ["id", 30], ["id", 36]]
+  ↳ app/views/tweets/_infinite_tweets.html.erb:7
+  Rendered tweets/_tweet.html.erb (Duration: 0.6ms | Allocations: 400)
+  Rendered tweets/_tweet.html.erb (Duration: 0.1ms | Allocations: 86)
+  Rendered tweets/_tweet.html.erb (Duration: 0.1ms | Allocations: 88)
+  Rendered tweets/_tweet.html.erb (Duration: 0.1ms | Allocations: 87)
+  Rendered tweets/_tweet.html.erb (Duration: 0.1ms | Allocations: 86)
+  Rendered tweets/_tweet.html.erb (Duration: 0.1ms | Allocations: 86)
+  Rendered tweets/_tweet.html.erb (Duration: 0.1ms | Allocations: 86)
+  Rendered tweets/_tweet.html.erb (Duration: 0.1ms | Allocations: 87)
+  Rendered tweets/_tweet.html.erb (Duration: 0.1ms | Allocations: 86)
+  Rendered tweets/_tweet.html.erb (Duration: 0.1ms | Allocations: 86)
+  Rendered tweets/_infinite_tweets.html.erb (Duration: 20.9ms | Allocations: 12517)
+  Rendered tweets/feed.html.erb within layouts/application (Duration: 24.7ms | Allocations: 15011)
+  Rendered shared/_auth_token.html.erb (Duration: 0.1ms | Allocations: 35)
+  Rendered layout layouts/application.html.erb (Duration: 26.5ms | Allocations: 16958)
+Completed 200 OK in 47ms (Views: 21.8ms | ActiveRecord: 8.5ms | Allocations: 29888)
+
+
+Started POST "/tweets" for ::1 at 2023-03-29 14:18:54 -0700
+Processing by TweetsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "tweet"=>{"body"=>"hi there", "mentioned_user_id"=>"4"}}
+  [1m[36mUser Load (1.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:7:in `current_user'
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/tweets_controller.rb:21:in `create'
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/tweets_controller.rb:21:in `create'
+  [1m[36mTweet Create (1.7ms)[0m  [1m[32mINSERT INTO "tweets" ("body", "author_id", "mentioned_user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["body", "hi there"], ["author_id", 1], ["mentioned_user_id", 4], ["created_at", "2023-03-29 21:18:55.882961"], ["updated_at", "2023-03-29 21:18:55.882961"]]
+  ↳ app/controllers/tweets_controller.rb:21:in `create'
+  [1m[36mTRANSACTION (1.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/tweets_controller.rb:21:in `create'
+Redirected to http://localhost:3000/users/1
+Completed 302 Found in 1041ms (ActiveRecord: 5.6ms | Allocations: 6190)
+
+
+Started GET "/users/1" for ::1 at 2023-03-29 14:18:55 -0700
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (2.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:7:in `current_user'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:23:in `show'
+  [1m[36mTweet Load (0.3ms)[0m  [1m[34mSELECT "tweets".* FROM "tweets" WHERE "tweets"."author_id" = $1[0m  [["author_id", 1]]
+  ↳ app/controllers/users_controller.rb:23:in `show'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IN ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)[0m  [["id", 7], ["id", 21], ["id", 32], ["id", 37], ["id", 15], ["id", 20], ["id", 5], ["id", 31], ["id", 4], ["id", 25]]
+  ↳ app/controllers/users_controller.rb:23:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering users/show.html.erb within layouts/application
+  Rendered shared/_errors.html.erb (Duration: 0.0ms | Allocations: 41)
+  Rendered shared/_auth_token.html.erb (Duration: 0.1ms | Allocations: 56)
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != $1[0m  [["id", 1]]
+  ↳ app/views/tweets/_form.html.erb:25:in `each_with_index'
+  Rendered tweets/_form.html.erb (Duration: 2.8ms | Allocations: 1821)
+  [1m[36mTweet Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "tweets" WHERE "tweets"."author_id" = $1 LIMIT $2 OFFSET $3[0m  [["author_id", 1], ["LIMIT", 1], ["OFFSET", 0]]
+  ↳ app/views/tweets/_infinite_tweets.html.erb:2
+  [1m[36mTweet Load (0.3ms)[0m  [1m[34mSELECT "tweets".* FROM "tweets" WHERE "tweets"."author_id" = $1 ORDER BY "tweets"."created_at" DESC LIMIT $2 OFFSET $3[0m  [["author_id", 1], ["LIMIT", 10], ["OFFSET", 0]]
+  ↳ app/views/tweets/_infinite_tweets.html.erb:7
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/tweets/_infinite_tweets.html.erb:7
+  [1m[36mUser Load (4.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IN ($1, $2, $3, $4, $5, $6, $7)[0m  [["id", 4], ["id", 31], ["id", 32], ["id", 7], ["id", 21], ["id", 25], ["id", 37]]
+  ↳ app/views/tweets/_infinite_tweets.html.erb:7
+  Rendered tweets/_tweet.html.erb (Duration: 0.2ms | Allocations: 103)
+  Rendered tweets/_tweet.html.erb (Duration: 0.1ms | Allocations: 87)
+  Rendered tweets/_tweet.html.erb (Duration: 0.1ms | Allocations: 86)
+  Rendered tweets/_tweet.html.erb (Duration: 0.1ms | Allocations: 86)
+  Rendered tweets/_tweet.html.erb (Duration: 0.1ms | Allocations: 86)
+  Rendered tweets/_tweet.html.erb (Duration: 0.1ms | Allocations: 86)
+  Rendered tweets/_tweet.html.erb (Duration: 0.1ms | Allocations: 85)
+  Rendered tweets/_tweet.html.erb (Duration: 0.1ms | Allocations: 86)
+  Rendered tweets/_tweet.html.erb (Duration: 0.1ms | Allocations: 85)
+  Rendered tweets/_tweet.html.erb (Duration: 0.1ms | Allocations: 85)
+  Rendered tweets/_infinite_tweets.html.erb (Duration: 10.3ms | Allocations: 4949)
+  [1m[36mUser Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" INNER JOIN "follows" ON "users"."id" = "follows"."follower_id" WHERE "follows"."following_id" = $1[0m  [["following_id", 1]]
+  ↳ app/views/users/show.html.erb:20
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "follows" ON "users"."id" = "follows"."follower_id" WHERE "follows"."following_id" = $1[0m  [["following_id", 1]]
+  ↳ app/views/users/show.html.erb:23
+  [1m[36mUser Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" INNER JOIN "follows" ON "users"."id" = "follows"."following_id" WHERE "follows"."follower_id" = $1[0m  [["follower_id", 1]]
+  ↳ app/views/users/show.html.erb:34
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "follows" ON "users"."id" = "follows"."following_id" WHERE "follows"."follower_id" = $1[0m  [["follower_id", 1]]
+  ↳ app/views/users/show.html.erb:37
+  Rendered users/show.html.erb within layouts/application (Duration: 20.9ms | Allocations: 14251)
+  Rendered shared/_auth_token.html.erb (Duration: 0.1ms | Allocations: 35)
+  Rendered layout layouts/application.html.erb (Duration: 22.4ms | Allocations: 16190)
+Completed 200 OK in 32ms (Views: 15.6ms | ActiveRecord: 10.6ms | Allocations: 21092)
+
+
+Started GET "/feed" for ::1 at 2023-03-29 14:19:02 -0700
+Processing by TweetsController#feed as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "[FILTERED]"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:7:in `current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering tweets/feed.html.erb within layouts/application
+  Rendered shared/_errors.html.erb (Duration: 0.1ms | Allocations: 29)
+  Rendered shared/_auth_token.html.erb (Duration: 0.2ms | Allocations: 35)
+  [1m[36mUser Load (1.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != $1[0m  [["id", 1]]
+  ↳ app/views/tweets/_form.html.erb:25:in `each_with_index'
+  Rendered tweets/_form.html.erb (Duration: 5.0ms | Allocations: 1616)
+  [1m[36mTweet Exists? (1.6ms)[0m  [1m[34mSELECT 1 AS one FROM "tweets" INNER JOIN "users" ON "tweets"."author_id" = "users"."id" INNER JOIN "follows" ON "users"."id" = "follows"."following_id" WHERE "follows"."follower_id" = $1 LIMIT $2 OFFSET $3[0m  [["follower_id", 1], ["LIMIT", 1], ["OFFSET", 0]]
+  ↳ app/views/tweets/_infinite_tweets.html.erb:2
+  [1m[36mTweet Load (0.9ms)[0m  [1m[34mSELECT "tweets".* FROM "tweets" INNER JOIN "users" ON "tweets"."author_id" = "users"."id" INNER JOIN "follows" ON "users"."id" = "follows"."following_id" WHERE "follows"."follower_id" = $1 ORDER BY "tweets"."created_at" DESC LIMIT $2 OFFSET $3[0m  [["follower_id", 1], ["LIMIT", 10], ["OFFSET", 0]]
+  ↳ app/views/tweets/_infinite_tweets.html.erb:7
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IN ($1, $2, $3, $4)[0m  [["id", 17], ["id", 23], ["id", 11], ["id", 2]]
+  ↳ app/views/tweets/_infinite_tweets.html.erb:7
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IN ($1, $2, $3, $4, $5, $6, $7, $8, $9)[0m  [["id", 18], ["id", 2], ["id", 40], ["id", 5], ["id", 37], ["id", 34], ["id", 26], ["id", 30], ["id", 36]]
+  ↳ app/views/tweets/_infinite_tweets.html.erb:7
+  Rendered tweets/_tweet.html.erb (Duration: 0.2ms | Allocations: 87)
+  Rendered tweets/_tweet.html.erb (Duration: 0.1ms | Allocations: 86)
+  Rendered tweets/_tweet.html.erb (Duration: 0.1ms | Allocations: 87)
+  Rendered tweets/_tweet.html.erb (Duration: 0.1ms | Allocations: 87)
+  Rendered tweets/_tweet.html.erb (Duration: 0.1ms | Allocations: 86)
+  Rendered tweets/_tweet.html.erb (Duration: 0.1ms | Allocations: 86)
+  Rendered tweets/_tweet.html.erb (Duration: 0.1ms | Allocations: 86)
+  Rendered tweets/_tweet.html.erb (Duration: 0.1ms | Allocations: 87)
+  Rendered tweets/_tweet.html.erb (Duration: 0.1ms | Allocations: 86)
+  Rendered tweets/_tweet.html.erb (Duration: 0.1ms | Allocations: 86)
+  Rendered tweets/_infinite_tweets.html.erb (Duration: 10.2ms | Allocations: 5103)
+  Rendered tweets/feed.html.erb within layouts/application (Duration: 15.5ms | Allocations: 6867)
+  Rendered shared/_auth_token.html.erb (Duration: 0.1ms | Allocations: 35)
+  Rendered layout layouts/application.html.erb (Duration: 17.8ms | Allocations: 8624)
+Completed 200 OK in 22ms (Views: 12.6ms | ActiveRecord: 6.2ms | Allocations: 10412)
+
+
