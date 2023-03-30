@@ -42,9 +42,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 var FollowToggle = /*#__PURE__*/function () {
-  function FollowToggle(toggleButton) {// Your code here
-
+  function FollowToggle(toggleButton) {
     _classCallCheck(this, FollowToggle);
+
+    this.toggleButton = toggleButton;
+    this.handleClick.bind(this);
   }
 
   _createClass(FollowToggle, [{
@@ -55,11 +57,21 @@ var FollowToggle = /*#__PURE__*/function () {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                event.preventDefault();
+                console.log(this.followState);
+
+                if (this.followState === "followed") {
+                  this.unfollow();
+                } else {
+                  this.follow();
+                }
+
+              case 3:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee);
+        }, _callee, this);
       }));
 
       function handleClick(_x) {
@@ -701,6 +713,10 @@ var UsersSearch = /*#__PURE__*/function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "followUser": function() { return /* binding */ followUser; },
+/* harmony export */   "unFollowUser": function() { return /* binding */ unFollowUser; }
+/* harmony export */ });
 /* harmony import */ var regenerator_runtime_runtime_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! regenerator-runtime/runtime.js */ "./node_modules/regenerator-runtime/runtime.js");
 /* harmony import */ var regenerator_runtime_runtime_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.object.to-string.js */ "./node_modules/core-js/modules/es.object.to-string.js");
@@ -762,13 +778,14 @@ function _customFetch() {
           case 0:
             options = _args.length > 1 && _args[1] !== undefined ? _args[1] : {};
             options.headers = _objectSpread({}, options.headers);
-            _context.next = 4;
+            console.log(options);
+            _context.next = 5;
             return fetch(url, options);
 
-          case 4:
+          case 5:
             return _context.abrupt("return", _context.sent);
 
-          case 5:
+          case 6:
           case "end":
             return _context.stop();
         }
@@ -777,6 +794,19 @@ function _customFetch() {
   }));
   return _customFetch.apply(this, arguments);
 }
+
+var followUser = function followUser(id) {
+  customFetch("/users/".concat(id, "/follow"), {
+    headers: {
+      method: 'POST'
+    }
+  });
+};
+var unFollowUser = function unFollowUser(id) {
+  customFetch("/users/".concat(id, "/follow"), {
+    method: 'DELETE'
+  });
+};
 
 /***/ }),
 
@@ -7284,13 +7314,14 @@ if (true) {
   window.API = _util__WEBPACK_IMPORTED_MODULE_7__.API;
 }
 
-var followToggleSelector = "";
+var followToggleSelector = ".follow-toggle";
 var infiniteTweetsSelector = "";
 var usersSearchSelector = "";
 var tweetComposeSelector = "";
 var followersSelector = "";
 document.querySelectorAll(followToggleSelector).forEach(function (el) {
   new _follow_toggle__WEBPACK_IMPORTED_MODULE_2__["default"](el);
+  console.log(el);
 });
 document.querySelectorAll(infiniteTweetsSelector).forEach(function (el) {
   new _infinite_tweets__WEBPACK_IMPORTED_MODULE_3__["default"](el);
